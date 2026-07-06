@@ -39,6 +39,15 @@
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
+		<!-- Jackson 2.x fixado explicitamente: o Spring Boot 4.1.0 traz por padrão o
+		     Jackson 3 (pacote tools.jackson.*), que quebra compatibilidade com a API
+		     clássica (com.fasterxml.jackson.*) usada neste projeto. -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.18.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
