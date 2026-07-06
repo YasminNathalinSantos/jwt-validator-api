@@ -1,0 +1,110 @@
+{
+  "title": "JWT Validator API - Observabilidade",
+  "description": "Dashboard de monitoramento da API de validacao de JWT: saude do servico, performance e metricas de negocio.",
+  "layout_type": "ordered",
+  "widgets": [
+    {
+      "definition": {
+        "title": "Status do Servico (Health Check)",
+        "type": "check_status",
+        "check": "http.can_connect",
+        "grouping": "cluster",
+        "tags": ["service:jwt-validator-api"]
+      }
+    },
+    {
+      "definition": {
+        "title": "Requisicoes por Segundo",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:http.server.requests.count{service:jwt-validator-api}.as_rate()",
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Taxa de Erro HTTP (5xx)",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:http.server.requests.count{service:jwt-validator-api,status:5xx}.as_rate()",
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Latencia p95 - /api/v1/jwt/validate",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "p95:http.server.requests.duration{service:jwt-validator-api,uri:/api/v1/jwt/validate}",
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Validacoes de JWT: Validas vs Invalidas",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:jwt.validation.count{result:valid}.as_count()",
+            "display_type": "bars"
+          },
+          {
+            "q": "sum:jwt.validation.count{result:invalid}.as_count()",
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Motivos de Falha na Validacao (Top Reasons)",
+        "type": "toplist",
+        "requests": [
+          {
+            "q": "top(sum:jwt.validation.count{result:invalid} by {reason}.as_count(), 10, 'sum', 'desc')"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Uso de Memoria JVM",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:jvm.memory.used{service:jwt-validator-api}",
+            "display_type": "area"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Threads Ativas (JVM)",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:jvm.threads.live{service:jwt-validator-api}",
+            "display_type": "line"
+          }
+        ]
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "env",
+      "prefix": "env",
+      "default": "production"
+    }
+  ]
+}

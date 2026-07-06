@@ -5,6 +5,7 @@ import com.jwtvalidator.api.domain.JwtStructuralValidator;
 import com.jwtvalidator.api.domain.NameRule;
 import com.jwtvalidator.api.domain.RoleRule;
 import com.jwtvalidator.api.domain.SeedRule;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,7 +16,8 @@ class JwtValidationServiceTest {
 
     private final JwtValidationService service = new JwtValidationService(
             new JwtStructuralValidator(),
-            List.of(new ClaimsWhitelistRule(), new NameRule(), new RoleRule(), new SeedRule())
+            List.of(new ClaimsWhitelistRule(), new NameRule(), new RoleRule(), new SeedRule()),
+            new SimpleMeterRegistry()
     );
 
     @Test

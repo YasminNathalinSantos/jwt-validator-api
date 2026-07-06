@@ -1,0 +1,20 @@
+{
+  "name": "[jwt-validator-api] Aplicacao fora do ar",
+  "type": "service check",
+  "query": "\"http.can_connect\".over(\"instance:jwt-validator-api-health\").by(\"host\").last(3).count_by_status()",
+  "message": "A aplicacao jwt-validator-api nao esta respondendo no endpoint /actuator/health.\n\nVerifique:\n- Se o processo da aplicacao esta rodando\n- Se ha erros recentes no log de inicializacao\n- Se alguma dependencia externa (ex: banco de dados) esta indisponivel\n\n@slack-time-engenharia @pagerduty-oncall",
+  "tags": ["service:jwt-validator-api", "env:production", "team:backend"],
+  "options": {
+    "thresholds": {
+      "critical": 1,
+      "warning": 1,
+      "ok": 1
+    },
+    "notify_no_data": true,
+    "no_data_timeframe": 10,
+    "notify_audit": false,
+    "require_full_window": false,
+    "new_group_delay": 60
+  },
+  "priority": 1
+}

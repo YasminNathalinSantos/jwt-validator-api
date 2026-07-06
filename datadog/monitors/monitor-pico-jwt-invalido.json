@@ -1,0 +1,16 @@
+{
+  "name": "[jwt-validator-api] Pico anormal de validacoes de JWT invalidas",
+  "type": "metric alert",
+  "query": "sum(last_10m):sum:jwt.validation.count{result:invalid}.as_count() > 100",
+  "message": "Foram registradas mais de 100 validacoes de JWT invalidas nos ultimos 10 minutos.\n\nIsso pode indicar:\n- Um cliente/integracao mal configurado enviando tokens no formato errado\n- Uma tentativa de ataque/varredura automatizada contra a API\n- Uma mudanca recente no formato de token esperado por um sistema consumidor\n\nVerifique a distribuicao por tag 'reason' para identificar a causa mais comum:\nhttp://localhost:8080/actuator/metrics/jwt.validation.count?tag=result:invalid\n\n@slack-time-seguranca @slack-time-engenharia",
+  "tags": ["service:jwt-validator-api", "env:production", "team:backend"],
+  "options": {
+    "thresholds": {
+      "critical": 100,
+      "warning": 50
+    },
+    "notify_no_data": false,
+    "require_full_window": false
+  },
+  "priority": 2
+}

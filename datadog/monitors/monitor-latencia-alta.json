@@ -1,0 +1,16 @@
+{
+  "name": "[jwt-validator-api] Latencia alta (p95)",
+  "type": "metric alert",
+  "query": "percentile(last_5m):p95:http.server.requests.duration{service:jwt-validator-api,uri:/api/v1/jwt/validate} > 0.5",
+  "message": "O p95 de latencia do endpoint /api/v1/jwt/validate esta acima de 500ms nos ultimos 5 minutos.\n\nPossveis causas:\n- Alto volume de requisicoes simultaneas\n- Regra de validacao com processamento custoso\n- Contencao de recursos (CPU/thread pool)\n\n@slack-time-engenharia",
+  "tags": ["service:jwt-validator-api", "env:production", "team:backend"],
+  "options": {
+    "thresholds": {
+      "critical": 0.5,
+      "warning": 0.3
+    },
+    "notify_no_data": false,
+    "require_full_window": true
+  },
+  "priority": 3
+}

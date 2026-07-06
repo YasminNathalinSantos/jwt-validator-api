@@ -9,6 +9,7 @@ import com.jwtvalidator.api.domain.JwtStructuralValidator;
 import com.jwtvalidator.api.domain.NameRule;
 import com.jwtvalidator.api.domain.RoleRule;
 import com.jwtvalidator.api.domain.SeedRule;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,24 +18,18 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Testes do Controller sem subir o contexto completo do Spring:
- * instanciamos o Service e o Validator reais e chamamos o
- * Controller diretamente, validando a tradução HTTP <-> Service/Domain.
- */
 class JwtValidationControllerTest {
 
     private final JwtStructuralValidator structuralValidator = new JwtStructuralValidator();
 
     private final JwtValidationService service = new JwtValidationService(
             structuralValidator,
-            List.of(new ClaimsWhitelistRule(), new NameRule(), new RoleRule(), new SeedRule())
+            List.of(new ClaimsWhitelistRule(), new NameRule(), new RoleRule(), new SeedRule()),
+            new SimpleMeterRegistry()
     );
 
     private final JwtValidationController controller =
             new JwtValidationController(service, structuralValidator);
-
-    // ---------- Endpoint /validate ----------
 
     @Test
     void caso1_deveRetornarValidoTrue() {
@@ -75,8 +70,6 @@ class JwtValidationControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().isValid()).isFalse();
     }
-
-    // ---------- Endpoint /decode ----------
 
     @Test
     void decode_deveRetornarPayloadCompleto_doCaso4ComQuatroClaims() {

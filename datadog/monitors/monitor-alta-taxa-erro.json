@@ -1,0 +1,17 @@
+{
+  "name": "[jwt-validator-api] Taxa de erro HTTP 5xx alta",
+  "type": "metric alert",
+  "query": "sum(last_5m):sum:http.server.requests.count{service:jwt-validator-api,status:5xx}.as_count() / sum:http.server.requests.count{service:jwt-validator-api}.as_count() * 100 > 5",
+  "message": "Mais de 5% das requisicoes para jwt-validator-api estao retornando erro 5xx nos ultimos 5 minutos.\n\nIsso pode indicar:\n- Bug recem-introduzido em deploy\n- Falha de dependencia externa\n- Sobrecarga de recursos (memoria/CPU)\n\n@slack-time-engenharia",
+  "tags": ["service:jwt-validator-api", "env:production", "team:backend"],
+  "options": {
+    "thresholds": {
+      "critical": 5,
+      "warning": 2
+    },
+    "notify_no_data": false,
+    "require_full_window": true,
+    "evaluation_delay": 60
+  },
+  "priority": 2
+}

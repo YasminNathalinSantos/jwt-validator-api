@@ -1,0 +1,40 @@
+# Exemplo de configuracao do Datadog Agent via Helm, para rodar em um
+# cluster Kubernetes junto com a aplicacao jwt-validator-api.
+#
+# Uso: helm install datadog-agent -f datadog-agent-values.yaml datadog/datadog
+
+datadog:
+  apiKey: <DATADOG_API_KEY>
+  site: datadoghq.com
+
+  logs:
+    enabled: true
+    containerCollectAll: true
+
+  apm:
+    portEnabled: true
+
+  processAgent:
+    enabled: true
+
+  # Permite que o Agent detecte automaticamente containers Java
+  # e injete instrumentacao APM sem alterar a imagem da aplicacao.
+  admissionController:
+    enabled: true
+    autoInstrumentation:
+      enabled: true
+      languages: ["java"]
+
+# Anotacoes que devem ser adicionadas ao deployment da aplicacao
+# para vincular logs/traces/metrics ao servico correto no Datadog:
+#
+# annotations:
+#   ad.datadoghq.com/jwt-validator-api.logs: '[{"source":"java","service":"jwt-validator-api"}]'
+#
+# env:
+#   - name: DD_SERVICE
+#     value: "jwt-validator-api"
+#   - name: DD_ENV
+#     value: "production"
+#   - name: DD_LOGS_INJECTION
+#     value: "true"
