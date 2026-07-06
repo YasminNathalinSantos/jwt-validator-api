@@ -26,6 +26,11 @@ public class SeedRule implements ClaimValidationRule {
 
     @Override
     public String name() {
-        return "SeedRule";
+        return "seed_rule";
+    }
+
+    @Override
+    public String failureReason() {
+        return "A claim Seed deve ser um numero primo valido";
     }
 }

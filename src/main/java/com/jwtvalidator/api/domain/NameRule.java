@@ -26,6 +26,11 @@ public class NameRule implements ClaimValidationRule {
 
     @Override
     public String name() {
-        return "NameRule";
+        return "name_rule";
+    }
+
+    @Override
+    public String failureReason() {
+        return "A claim Name nao pode conter numeros e deve ter no maximo 256 caracteres";
     }
 }

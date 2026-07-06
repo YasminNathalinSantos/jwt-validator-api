@@ -24,6 +24,11 @@ public class RoleRule implements ClaimValidationRule {
 
     @Override
     public String name() {
-        return "RoleRule";
+        return "role_rule";
+    }
+
+    @Override
+    public String failureReason() {
+        return "A claim Role deve ser um dos valores: Admin, Member ou External";
     }
 }

@@ -27,6 +27,11 @@ public class ClaimsWhitelistRule implements ClaimValidationRule {
 
     @Override
     public String name() {
-        return "ClaimsWhitelistRule";
+        return "claims_whitelist";
+    }
+
+    @Override
+    public String failureReason() {
+        return "O token deve conter exatamente as claims Name, Role e Seed (nem a mais, nem a menos)";
     }
 }
