@@ -4,3 +4,13 @@ target/
 .vscode/
 .DS_Store
 *.log
+
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata/
+
+# STS (Spring Tool Suite)
+.apt_generated
+.factorypath
