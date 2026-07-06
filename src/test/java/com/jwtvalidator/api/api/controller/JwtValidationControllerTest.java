@@ -1,5 +1,6 @@
 package com.jwtvalidator.api.api.controller;
 
+import com.jwtvalidator.api.api.dto.JwtDecodeResponse;
 import com.jwtvalidator.api.api.dto.JwtValidationRequest;
 import com.jwtvalidator.api.api.dto.JwtValidationResponse;
 import com.jwtvalidator.api.application.JwtValidationService;
@@ -18,17 +19,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Testes do Controller sem subir o contexto completo do Spring:
- * instanciamos o Service real (com as regras reais) e chamamos o
- * Controller diretamente, validando a tradução HTTP <-> Service.
+ * instanciamos o Service e o Validator reais e chamamos o
+ * Controller diretamente, validando a tradução HTTP <-> Service/Domain.
  */
 class JwtValidationControllerTest {
 
+    private final JwtStructuralValidator structuralValidator = new JwtStructuralValidator();
+
     private final JwtValidationService service = new JwtValidationService(
-            new JwtStructuralValidator(),
+            structuralValidator,
             List.of(new ClaimsWhitelistRule(), new NameRule(), new RoleRule(), new SeedRule())
     );
 
-    private final JwtValidationController controller = new JwtValidationController(service);
+    private final JwtValidationController controller =
+            new JwtValidationController(service, structuralValidator);
+
+    // ---------- Endpoint /validate ----------
 
     @Test
     void caso1_deveRetornarValidoTrue() {
@@ -68,5 +74,33 @@ class JwtValidationControllerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().isValid()).isFalse();
+    }
+
+    // ---------- Endpoint /decode ----------
+
+    @Test
+    void decode_deveRetornarPayloadCompleto_doCaso4ComQuatroClaims() {
+        String jwt = "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiTWVtYmVyIiwiT3JnIjoiQlIiLCJTZWVkIjoiMTQ2MjciLCJOYW1lIjoiVmFsZGlyIEFyYW5oYSJ9.cmrXV_Flm5mfdpfNUVopY_I2zeJUy4EZ4i3Fea98zvY";
+
+        ResponseEntity<JwtDecodeResponse> response = controller.decode(jwt);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().isStructurallyValid()).isTrue();
+        assertThat(response.getBody().getPayload()).hasSize(4);
+        assertThat(response.getBody().getPayload().get("Role")).isEqualTo("Member");
+        assertThat(response.getBody().getPayload().get("Org")).isEqualTo("BR");
+        assertThat(response.getBody().getPayload().get("Seed")).isEqualTo("14627");
+        assertThat(response.getBody().getPayload().get("Name")).isEqualTo("Valdir Aranha");
+    }
+
+    @Test
+    void decode_deveRetornarStructurallyValidFalse_paraJwtMalformado() {
+        String jwt = "eyJhbGciOiJzI1NiJ9.dfsdfsfryJSr2xrIjoiQWRtaW4iLCJTZrkIjoiNzg0MSIsIk5hbrUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05fsdfsIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg";
+
+        ResponseEntity<JwtDecodeResponse> response = controller.decode(jwt);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().isStructurallyValid()).isFalse();
+        assertThat(response.getBody().getPayload()).isNull();
     }
 }
