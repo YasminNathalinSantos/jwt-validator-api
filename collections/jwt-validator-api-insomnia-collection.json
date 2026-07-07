@@ -1,0 +1,99 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-07-06T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v8.0.0",
+  "resources": [
+    {
+      "_id": "wrk_jwt_validator",
+      "_type": "workspace",
+      "name": "JWT Validator API",
+      "description": "Colecao de testes para a API de validacao de JWT"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_jwt_validator",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080"
+      }
+    },
+    {
+      "_id": "req_caso1",
+      "_type": "request",
+      "parentId": "wrk_jwt_validator",
+      "name": "Caso 1 - JWT valido (esperado: true)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/jwt/validate",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05sIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg\"\n}"
+      },
+      "headers": [
+        {"name": "Content-Type", "value": "application/json"}
+      ]
+    },
+    {
+      "_id": "req_caso2",
+      "_type": "request",
+      "parentId": "wrk_jwt_validator",
+      "name": "Caso 2 - JWT malformado (esperado: false)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/jwt/validate",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"token\": \"eyJhbGciOiJzI1NiJ9.dfsdfsfryJSr2xrIjoiQWRtaW4iLCJTZrkIjoiNzg0MSIsIk5hbrUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05fsdfsIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg\"\n}"
+      },
+      "headers": [
+        {"name": "Content-Type", "value": "application/json"}
+      ]
+    },
+    {
+      "_id": "req_caso3",
+      "_type": "request",
+      "parentId": "wrk_jwt_validator",
+      "name": "Caso 3 - Name com numero (esperado: false)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/jwt/validate",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiRXh0ZXJuYWwiLCJTZWVkIjoiODgwMzciLCJOYW1lIjoiTTRyaWEgT2xpdmlhIn0.6YD73XWZYQSSMDf6H0i3-kylz1-TY_Yt6h1cV2Ku-Qs\"\n}"
+      },
+      "headers": [
+        {"name": "Content-Type", "value": "application/json"}
+      ]
+    },
+    {
+      "_id": "req_caso4",
+      "_type": "request",
+      "parentId": "wrk_jwt_validator",
+      "name": "Caso 4 - Mais de 3 claims (esperado: false)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/jwt/validate",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiTWVtYmVyIiwiT3JnIjoiQlIiLCJTZWVkIjoiMTQ2MjciLCJOYW1lIjoiVmFsZGlyIEFyYW5oYSJ9.cmrXV_Flm5mfdpfNUVopY_I2zeJUy4EZ4i3Fea98zvY\"\n}"
+      },
+      "headers": [
+        {"name": "Content-Type", "value": "application/json"}
+      ]
+    },
+    {
+      "_id": "req_health",
+      "_type": "request",
+      "parentId": "wrk_jwt_validator",
+      "name": "Health Check",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/health"
+    },
+    {
+      "_id": "req_metrics",
+      "_type": "request",
+      "parentId": "wrk_jwt_validator",
+      "name": "Metrics - jwt.validation.count",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/metrics/jwt.validation.count"
+    }
+  ]
+}
