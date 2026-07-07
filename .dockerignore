@@ -1,0 +1,11 @@
+target/
+.git/
+.gitignore
+.classpath
+.project
+.settings/
+.metadata/
+*.md
+datadog/
+.vscode/
+.idea/
