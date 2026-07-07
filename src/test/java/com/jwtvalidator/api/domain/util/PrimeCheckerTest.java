@@ -1,4 +1,4 @@
-package com.jwtvalidator.api.domain;
+package com.jwtvalidator.api.domain.util;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

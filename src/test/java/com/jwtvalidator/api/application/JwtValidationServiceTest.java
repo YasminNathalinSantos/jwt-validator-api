@@ -1,10 +1,10 @@
 package com.jwtvalidator.api.application;
 
-import com.jwtvalidator.api.domain.ClaimsWhitelistRule;
+import com.jwtvalidator.api.domain.rule.ClaimsWhitelistRule;
 import com.jwtvalidator.api.domain.JwtStructuralValidator;
-import com.jwtvalidator.api.domain.NameRule;
-import com.jwtvalidator.api.domain.RoleRule;
-import com.jwtvalidator.api.domain.SeedRule;
+import com.jwtvalidator.api.domain.rule.NameRule;
+import com.jwtvalidator.api.domain.rule.RoleRule;
+import com.jwtvalidator.api.domain.rule.SeedRule;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 

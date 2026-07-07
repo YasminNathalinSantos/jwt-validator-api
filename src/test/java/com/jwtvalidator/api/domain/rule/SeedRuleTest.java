@@ -1,4 +1,4 @@
-package com.jwtvalidator.api.domain;
+package com.jwtvalidator.api.domain.rule;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

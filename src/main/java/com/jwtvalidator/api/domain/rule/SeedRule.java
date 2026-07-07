@@ -1,6 +1,7 @@
-package com.jwtvalidator.api.domain;
+package com.jwtvalidator.api.domain.rule;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.jwtvalidator.api.domain.util.PrimeChecker;
 import org.springframework.stereotype.Component;
 
 /**

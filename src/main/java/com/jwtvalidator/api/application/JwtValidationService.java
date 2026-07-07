@@ -1,6 +1,6 @@
 package com.jwtvalidator.api.application;
 
-import com.jwtvalidator.api.domain.ClaimValidationRule;
+import com.jwtvalidator.api.domain.rule.ClaimValidationRule;
 import com.jwtvalidator.api.domain.JwtStructuralValidator;
 import com.jwtvalidator.api.domain.JwtStructureResult;
 import io.micrometer.core.instrument.Counter;
