@@ -2,6 +2,16 @@
 
 API REST que recebe um JWT (string) e verifica se ele e valido conforme regras de negocio customizadas, retornando um booleano (true/false).
 
+## API em producao (deploy ao vivo)
+
+A API esta hospedada no Render e pode ser testada publicamente, sem precisar rodar nada localmente:
+
+- **Swagger (documentacao interativa)**: https://jwt-validator-api.onrender.com/swagger-ui/index.html
+- **Health check**: https://jwt-validator-api.onrender.com/actuator/health
+- **Endpoint de validacao**: POST https://jwt-validator-api.onrender.com/api/v1/jwt/validate
+
+> Nota: o plano gratuito do Render "adormece" a aplicacao apos alguns minutos de inatividade. A primeira requisicao apos um periodo ocioso pode levar ate 50 segundos para responder, enquanto o servico "acorda". Requisicoes seguintes respondem normalmente.
+
 ## Regras de validacao
 
 Para um JWT ser considerado valido, ele precisa:
