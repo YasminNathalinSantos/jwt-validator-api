@@ -3,9 +3,7 @@ package com.jwtvalidator.api.domain.rule;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Component;
 
-/**
- * A claim Name não pode conter dígitos e deve ter no máximo 256 caracteres.
- */
+
 @Component
 public class NameRule implements ClaimValidationRule {
 

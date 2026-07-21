@@ -1,8 +1,6 @@
 package com.jwtvalidator.api.domain.util;
 
-/**
- * Utilitário isolado para checagem de número primo (fácil de testar sozinho).
- */
+
 public final class PrimeChecker {
 
     private PrimeChecker() {

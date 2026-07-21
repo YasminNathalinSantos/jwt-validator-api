@@ -11,12 +11,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.UUID;
 
-/**
- * Garante que toda requisição HTTP tenha um identificador único (requestId),
- * usado para correlacionar todos os logs gerados durante o processamento
- * dessa requisição. O ID é aceito via header "X-Request-Id" (se o cliente
- * enviar) ou gerado automaticamente caso contrário, e devolvido na resposta.
- */
 @Component
 public class RequestCorrelationFilter extends OncePerRequestFilter {
 

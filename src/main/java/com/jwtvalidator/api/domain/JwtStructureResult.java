@@ -2,10 +2,7 @@ package com.jwtvalidator.api.domain;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-/**
- * Resultado da checagem estrutural de um JWT.
- * Se válido, carrega o payload (claims) já decodificado como JSON.
- */
+
 public class JwtStructureResult {
 
     private final boolean valid;

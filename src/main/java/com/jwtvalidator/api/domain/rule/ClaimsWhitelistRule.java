@@ -6,10 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Garante que o payload tenha EXATAMENTE as claims permitidas: Name, Role e Seed.
- * Nem a mais, nem a menos.
- */
+
 @Component
 public class ClaimsWhitelistRule implements ClaimValidationRule {
 

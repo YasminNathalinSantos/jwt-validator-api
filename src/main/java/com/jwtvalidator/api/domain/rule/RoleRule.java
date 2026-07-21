@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-/**
- * A claim Role deve conter exatamente um dos valores: Admin, Member ou External.
- */
+
 @Component
 public class RoleRule implements ClaimValidationRule {
 

@@ -2,10 +2,7 @@ package com.jwtvalidator.api.api.dto;
 
 import java.util.Map;
 
-/**
- * Resposta do endpoint de decodificação "de debug", que apenas
- * exibe o payload de um JWT sem aplicar as regras de negócio.
- */
+
 public class JwtDecodeResponse {
 
     private final boolean structurallyValid;

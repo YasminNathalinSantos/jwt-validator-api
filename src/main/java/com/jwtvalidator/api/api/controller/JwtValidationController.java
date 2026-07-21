@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-/**
- * Expõe os endpoints relacionados a JWT via HTTP.
- * Esta camada não contém regra de negócio — apenas traduz HTTP <-> Service/Domain.
- */
 @RestController
 @RequestMapping("/api/v1/jwt")
 public class JwtValidationController {
@@ -43,11 +39,6 @@ public class JwtValidationController {
         return ResponseEntity.ok(new JwtValidationResponse(isValid));
     }
 
-    /**
-     * Endpoint auxiliar de debug/visualização: decodifica o payload de um JWT,
-     * sem aplicar as regras de negócio (Name, Role, Seed). Útil para conferir
-     * visualmente o conteúdo de um token durante testes manuais.
-     */
     @GetMapping("/decode")
     public ResponseEntity<JwtDecodeResponse> decode(@RequestParam String token) {
         JwtStructureResult result = jwtStructuralValidator.validate(token);

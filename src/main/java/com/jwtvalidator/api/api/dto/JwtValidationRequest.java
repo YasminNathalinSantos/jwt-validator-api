@@ -2,9 +2,7 @@ package com.jwtvalidator.api.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-/**
- * Corpo da requisição para validação de JWT.
- */
+
 public class JwtValidationRequest {
 
     @NotBlank(message = "O campo 'token' é obrigatório e não pode estar em branco")

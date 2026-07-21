@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.jwtvalidator.api.domain.util.PrimeChecker;
 import org.springframework.stereotype.Component;
 
-/**
- * A claim Seed deve representar um número primo.
- */
+
 @Component
 public class SeedRule implements ClaimValidationRule {
 

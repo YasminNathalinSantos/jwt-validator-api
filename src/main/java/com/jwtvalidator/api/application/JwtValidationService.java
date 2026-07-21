@@ -11,18 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Orquestra a validação completa de um JWT:
- * 1) valida a estrutura do token
- * 2) aplica todas as regras de claims registradas (injetadas pelo Spring)
- *
- * Novas regras podem ser adicionadas apenas criando uma nova classe que
- * implementa ClaimValidationRule — nenhuma alteração é necessária aqui (OCP).
- *
- * Também registra métricas de negócio (Micrometer) contando validações
- * bem-sucedidas e falhas, categorizadas por um identificador curto da regra
- * (para a tag da métrica) e uma descrição legível (para os logs).
- */
+
 @Service
 public class JwtValidationService {
 

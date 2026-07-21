@@ -7,13 +7,7 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-/**
- * Verifica se uma string é um JWT bem formado:
- * - possui exatamente 3 segmentos separados por "."
- * - header e payload são Base64URL válidos e decodificam para JSON válido
- * - a assinatura é uma string Base64URL válida (não verificamos a assinatura
- *   criptograficamente, pois nenhuma chave/segredo foi fornecida no enunciado)
- */
+
 @Component
 public class JwtStructuralValidator {
 
